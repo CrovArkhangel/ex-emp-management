@@ -1,9 +1,18 @@
 package com.example.domain;
 
+/**
+ * 管理者を表すクラスです.
+ * Administrator テーブルに対応しています。
+ */
+
 public class Administrator {
+    /** id */
     private Integer id;
+    /** 名前 */
     private String name;
+    /** メールアドレス */
     private String mailAddress;
+    /** パスワード */
     private String password;
 
     public Administrator() {
