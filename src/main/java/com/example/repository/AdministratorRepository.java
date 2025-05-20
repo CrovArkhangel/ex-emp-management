@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 /**
- * administratorsテーブルを操作するリポジトリーです。
+ * administratorsテーブルを操作するリポジトリーです.
  *
  */
 @Repository
@@ -28,7 +28,8 @@ public class AdministratorRepository {
     };
 
     /**
-     * 渡した管理者情報をテーブルに挿入する
+     * 渡した管理者情報をテーブルに挿入する.
+     *
      * @param administrator 管理者情報
      */
     public void insert(Administrator administrator) {
@@ -38,9 +39,10 @@ public class AdministratorRepository {
     }
 
     /**
-     * メールアドレスとパスワードから管理者情報を取得
-     * @param mailAddress
-     * @param address
+     * メールアドレスとパスワードから管理者情報を取得.
+     *
+     * @param mailAddress メールアドレス
+     * @param address 住所
      * @return 取得した従業員情報
      */
     public Administrator findByMailAddressAndPassword(String mailAddress, String address){

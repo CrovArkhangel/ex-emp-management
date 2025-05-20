@@ -3,8 +3,8 @@ package com.example.domain;
 import java.util.Date;
 
 /**
- * 従業員情報を表すドメインです。
- * Employeesテーブルと対応しています。
+ * 従業員情報を表すドメインです.
+ * employeesテーブルと対応しています。
  */
 public class Employee {
     /** id */
