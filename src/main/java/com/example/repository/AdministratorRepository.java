@@ -1,0 +1,54 @@
+package com.example.repository;
+
+import com.example.domain.Administrator;
+import com.example.domain.Employee;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.stereotype.Repository;
+/**
+ * administratorsテーブルを操作するリポジトリーです。
+ *
+ */
+@Repository
+public class AdministratorRepository {
+    @Autowired
+    private NamedParameterJdbcTemplate template;
+
+    private static final RowMapper<Administrator> ADMINISTRATOR_ROW_MAPPER = (rs, i) -> {
+        Administrator administrator = new Administrator();
+        administrator.setId(rs.getInt("id"));
+        administrator.setName(rs.getString("name"));
+        administrator.setMailAddress(rs.getString("mailAddress"));
+        administrator.setPassword(rs.getString("password"));
+        return administrator;
+    };
+
+    /**
+     * 渡した管理者情報をテーブルに挿入する
+     * @param administrator 管理者情報
+     */
+    public void insert(Administrator administrator) {
+        SqlParameterSource param = new BeanPropertySqlParameterSource(administrator);
+        String sql = "insert into administrators(name, mailAddress, password) values(:name, :mailAddress, :password);";
+        template.update(sql, param);
+    }
+
+    /**
+     * メールアドレスとパスワードから管理者情報を取得
+     * @param mailAddress
+     * @param address
+     * @return 取得した従業員情報
+     */
+    public Administrator findByMailAddressAndPassword(String mailAddress, String address){
+        String sql = "Select id, name, mailAddress, password from Administrator where mailAddress = :mailAddress AND Address = :Address;";
+        SqlParameterSource param = new MapSqlParameterSource()
+                .addValue("mailAddress", mailAddress)
+                .addValue("Address", address);
+        Administrator administrator = template.queryForObject(sql, param, ADMINISTRATOR_ROW_MAPPER);
+        return administrator;
+    }
+}
