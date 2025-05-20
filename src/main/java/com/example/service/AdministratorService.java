@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public class AdministratorService {
+    /** administrators テーブルを操作するリポジトリー*/
     @Autowired
     private AdministratorRepository administratorRepository;
 
