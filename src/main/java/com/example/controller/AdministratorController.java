@@ -39,6 +39,27 @@ public class AdministratorController {
     }
 
     /**
+     * ログイン処理を行う.
+     *
+     * @param form フォーム
+     * @param model モデル
+     * @return ログイン成功時：ログイン画面に遷移 ログイン失敗時：従業員一覧画面に遷移
+     */
+    @PostMapping("/login")
+    public String login(LoginForm form, Model model){
+        String mailAddress = form.getMailAddress();
+        String password = form.getPassword();
+        Administrator administrator = administratorService.login(mailAddress,password);
+        if(administrator == null){
+            model.addAttribute("errorMessage","メールアドレスまたはパスワードが不正です。");
+            return "administrator/login";
+        }
+        System.out.println(administrator);
+        session.setAttribute("administratorName", administrator.getName());
+        return "redirect:employee/showList";
+    }
+
+    /**
      * 管理者情報登録画面に遷移する.
      *
      * @param form フォーム
@@ -63,24 +84,5 @@ public class AdministratorController {
         return "redirect:/";
     }
 
-    /**
-     * ログイン処理を行う。
-     *
-     * @param form フォーム
-     * @param model モデル
-     * @return ログイン成功時：ログイン画面に遷移 ログイン失敗時：従業員一覧画面に遷移
-     */
-    @PostMapping("/login")
-    public String login(LoginForm form, Model model){
-        String mailAddress = form.getMailAddress();
-        String password = form.getPassword();
-        Administrator administrator = administratorService.login(mailAddress,password);
-        if(administrator == null){
-            model.addAttribute("errorMessage","メールアドレスまたはパスワードが不正です。");
-            return "administrator/login";
-        }
-        System.out.println(administrator);
-        session.setAttribute("administratorName", administrator.getName());
-        return "redirect:employee/showList";
-    }
+
 }
