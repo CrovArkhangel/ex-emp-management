@@ -1,7 +1,7 @@
 package com.example.domain;
 
 /**
- * 管理者を表すクラスです.
+ * 管理者を表すドメインです.
  * Administrator テーブルに対応しています。
  */
 
