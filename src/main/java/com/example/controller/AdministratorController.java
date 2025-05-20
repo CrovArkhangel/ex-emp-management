@@ -32,10 +32,10 @@ public class AdministratorController {
     }
 
     /**
-     * 送信された管理者情報を取得し、ログイン画面にリダイレクトする.
+     * 管理者情報を登録する.
      *
      * @param form フォーム
-     * @return ログイン画面にリダイレクト
+     * @return ログイン画面
      */
     @PostMapping("/insert")
     public String insert(InsertAdministratorForm form){
