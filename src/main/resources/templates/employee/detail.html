@@ -97,7 +97,8 @@
                   <tr>
                     <th nowrap>従業員名</th>
                     <td>
-                      <input type="text" th:field="${employee.name}" name="name">
+                      <div th:errors="*{name}" class="error-messages">エラー！</div>
+                      <input type="text" th:field="${employee.name}" name="name" class="form-control">
                     </td>
                   </tr>
                   <tr>
@@ -105,63 +106,69 @@
                     <td>
                       <img src="../../static/img/e2.png" th:src="@{'/img/' + ${employee.image}}"/>
                       <!-- 画像ファイルを選択 -->
-                      <input type="file" name="image" th:field="${employee.image}">
+                      <input type="file" name="image" th:field="${employee.image}" class="form-control">
                     </td>
                   </tr>
                   <tr>
                     <th nowrap>性別</th>
                     <td>
-                      <input type="text" th:field="${employee.gender}" name="gender">
+                      <div th:errors="*{gender}" class="error-messages">エラー！</div>
+                      <input type="text" th:field="${employee.gender}" name="gender" class="form-control">
                     </td>
                   </tr>
                   <tr>
                     <th nowrap>入社日</th>
                     <td>
-                      <input type="date" th:field="${employee.hireDate}" name="hireDate">
+                      <div th:errors="*{hireDate}" class="error-messages">エラー！</div>
+                      <input type="date" th:field="${employee.hireDate}" name="hireDate" class="form-control">
                     </td>
                   </tr>
                   <tr>
                     <th nowrap>メールアドレス</th>
                     <td>
-                      <input type="text" th:field="${employee.mailAddress}" name="mailAddress">
+                      <div th:errors="*{mailAddress}" class="error-messages">エラー！</div>
+                      <input type="text" th:field="${employee.mailAddress}" name="mailAddress" class="form-control">
                     </td>
                   </tr>
                   <tr>
                     <th nowrap>郵便番号</th>
                     <td>
-                      <input type="text" th:field="${employee.zipCode}" name="zipCode">
+                      <div th:errors="*{zipCode}" class="error-messages">エラー！</div>
+                      <input type="text" th:field="${employee.zipCode}" name="zipCode" class="form-control">
                     </td>
                   </tr>
                   <tr>
                     <th nowrap>住所</th>
                     <td>
-                      <input type="text" th:field="${employee.address}" name="address">
+                      <div th:errors="*{address}" class="error-messages">エラー！</div>
+                      <input type="text" th:field="${employee.address}" name="address" class="form-control">
                     </td>
                   </tr>
                   <tr>
                     <th nowrap>電話番号</th>
                     <td>
-                      <input type="text" th:field="${employee.telephone}"name="telephone">
+                      <div th:errors="*{telephone}" class="error-messages">エラー！</div>
+                      <input type="text" th:field="${employee.telephone}" name="telephone" class="form-control">
                     </td>
                   </tr>
                   <tr>
                     <th nowrap>給料</th>
                     <td>
-                      <input type="text" th:field="${employee.salary}" name="salary">円
+                      <div th:errors="*{salary}" class="error-messages">エラー！</div>
+                      <input type="text" th:field="${employee.salary}" name="salary" class="form-control">円
                     </td>
                   </tr>
                   <tr>
                     <th nowrap>特性</th>
                     <td>
-                      <textarea rows="4" style="width: 100%" th:field="${employee.characteristics}" name="characteristics"></textarea>
+                      <div th:errors="*{characteristics}" class="error-messages">エラー！</div>
+                      <textarea class="form-control" rows="4" style="width: 100%" th:field="${employee.characteristics}" name="characteristics"></textarea>
                     </td>
                   </tr>
                   <tr>
                     <th nowrap>扶養人数</th>
                     <td>
-                      <label class="error-messages">
-                        扶養人数を入力してください
-                      </label>
+                      <div th:errors="*{dependentsCount}" class="error-messages">エラー！</div>
                       <label
                               class="control-label"
                               style="color: red"

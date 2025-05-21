@@ -1,5 +1,8 @@
 package com.example.form;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -11,27 +14,38 @@ public class UpdateEmployeeForm {
     /** id */
     private String id;
     /** 名前 */
+    @NotBlank(message = "名前は必須です。")
     private String name;
     /** 画像 */
     private String image;
     /** 性別 */
+    @NotBlank(message = "性別は必須です。")
     private String gender;
     /** 入社日 */
+    @NotNull(message = "入社日は必須です。")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date hireDate;
     /** メールアドレス */
+    @NotBlank(message = "メールアドレスは必須です。")
     private String mailAddress;
     /** 郵便番号 */
+    @NotBlank(message = "郵便番号は必須です")
+    @Pattern(regexp = "^\\d{3}-\\d{4}$" , message = "郵便番号の形式にしてください。")
     private String zipCode;
     /** 住所 */
+    @NotBlank(message = "住所は必須です。")
     private String address;
     /** 電話番号 */
+    @NotBlank(message = "電話番号は必須です。")
     private String telephone;
     /** 給料 */
+    @NotNull(message = "給料は必須です。")
     private Integer salary;
     /** 特性 */
+    @NotBlank(message = "特性は必須です。")
     private String characteristics;
-    /** 不容人数 */
+    /** 扶養人数 */
+    @NotBlank(message = "不要人数は必須です。")
     private String dependentsCount;
 
     @Override
