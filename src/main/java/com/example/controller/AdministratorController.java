@@ -59,6 +59,17 @@ public class AdministratorController {
     }
 
     /**
+     * ログイン画面に遷移する.
+     *
+     * @return ログイン画面
+     */
+    @GetMapping("/logout")
+    public String logout(){
+        session.invalidate();
+        return "redirect:/";
+    }
+
+    /**
      * 管理者情報登録画面に遷移する.
      *
      * @param form フォーム
