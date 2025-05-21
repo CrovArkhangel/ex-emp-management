@@ -34,6 +34,6 @@ public class EmployeeService {
      * @return idが一致する従業員情報
      */
     public Employee showDetail(Integer id){
-        return employeeRepository.findById(id.toString());
+        return employeeRepository.findById(id);
     }
 }

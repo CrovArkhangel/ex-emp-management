@@ -69,7 +69,7 @@ public class EmployeeRepository {
      * @param id ID
      * @return 検索された従業員情報
      */
-    public Employee findById(String id){
+    public Employee findById(Integer id){
         String sql = "Select " +
                 "id, " +
                 "name, " +
@@ -83,7 +83,7 @@ public class EmployeeRepository {
                 "salary, " +
                 "characteristics, " +
                 "dependents_count " +
-                " from Administrators where id = :id;";
+                " from employees where id = :id;";
         SqlParameterSource param = new MapSqlParameterSource()
                 .addValue("id", id);
         Employee employee = template.queryForObject(sql, param, EMPLOYEE_ROW_MAPPER);
