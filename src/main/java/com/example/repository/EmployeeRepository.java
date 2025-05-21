@@ -103,12 +103,12 @@ public class EmployeeRepository {
                 "gender = :gender, " +
                 "hire_date = :hireDate, " +
                 "mail_address = :mailAddress, " +
-                "zip_code = zipCode, " +
+                "zip_code = :zipCode, " +
                 "address = :address, " +
                 "telephone = :telephone, " +
                 "salary = :salary, " +
                 "characteristics = :characteristics, " +
-                "dependentsCount = :dependents_count " +
+                "dependents_count = :dependentsCount " +
                 "where id = :id;";
         template.update(sql, param);
     }
