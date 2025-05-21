@@ -43,7 +43,7 @@ public class EmployeeRepository {
      *
      * @return 全従業員一覧
      */
-    private List<Employee> findAll(){
+    public List<Employee> findAll(){
         String sql = "select " +
                 "id, " +
                 "name, " +
@@ -69,7 +69,7 @@ public class EmployeeRepository {
      * @param id ID
      * @return 検索された従業員情報
      */
-    private Employee findById(String id){
+    public Employee findById(String id){
         String sql = "Select " +
                 "id, " +
                 "name, " +
@@ -95,7 +95,7 @@ public class EmployeeRepository {
      *
      * @param employee 従業員情報
      */
-    private void update(Employee employee){
+    public void update(Employee employee){
         SqlParameterSource param = new BeanPropertySqlParameterSource(employee);
         String sql = "Update employees set " +
                 "name = :name, " +
