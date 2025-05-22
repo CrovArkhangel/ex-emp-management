@@ -59,9 +59,11 @@
               <li class="active"><a href="list.html">従業員管理</a></li>
             </ul>
             <p class="navbar-text navbar-right">
-              <span th:text="${session.administratorName + 'さん'}"
-                >山田さん</span
-              >こんにちは！ &nbsp;&nbsp;&nbsp;
+              <a href="detail.html" th:href="'/ex-emp/detail?id=' + ${session.administratorId}">
+                <span th:text="${session.administratorName + 'さん'}"
+                  >山田さん</span
+                >こんにちは！
+              </a> &nbsp;&nbsp;&nbsp;
               <a href="../administrator/login.html" class="navbar-link" th:href="@{/logout}"
                 >ログアウト</a
               >

@@ -44,7 +44,7 @@ public class AdministratorRepository {
     }
 
     /**
-     * メールアドレスとパスワードから管理者情報を取得.
+     * メールアドレスとパスワードから管理者情報を取得する.
      *
      * @param mailAddress メールアドレス
      * @param password パスワード
@@ -60,5 +60,35 @@ public class AdministratorRepository {
             return null;
         }
         return administratorList.getFirst();
+    }
+
+    /**
+     * idから管理者情報を取得する.
+     *
+     * @param id id
+     * @return 取得した管理者情報
+     */
+    public Administrator finById(Integer id){
+        System.out.println(id);
+        final String sql = "select id, name, mail_address, password from administrators where id = :id;";
+        SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+        List<Administrator> administratorList = template.query(sql, param, ADMINISTRATOR_ROW_MAPPER);
+        if(administratorList.isEmpty()){
+            return null;
+        }
+        return administratorList.getFirst();
+    }
+
+    /**
+     * ログインしている管理者情報を更新する.
+     *
+     * @param administrator 管理者情報
+     */
+    public void update(Administrator administrator){
+        SqlParameterSource param = new BeanPropertySqlParameterSource(administrator);
+        final String sql = "update administrators set name = :name, mail_address = :mailAddress, password = :password where id = :id";
+        System.out.println(administrator);
+        System.out.println(sql);
+        template.update(sql, param);
     }
 }

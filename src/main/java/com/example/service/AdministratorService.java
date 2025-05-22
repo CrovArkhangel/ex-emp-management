@@ -37,4 +37,16 @@ public class AdministratorService {
         return administratorRepository.findByMailAddressAndPassword(mailAddress, password);
     }
 
+    /**
+     * ログインしている管理者情報を更新する.
+     *
+     * @param administrator 管理者情報
+     */
+    public void update(Administrator administrator){
+        administratorRepository.update(administrator);
+    }
+
+    public Administrator findById(Integer id){
+        return administratorRepository.finById(id);
+    }
 }

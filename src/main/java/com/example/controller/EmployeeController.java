@@ -26,6 +26,9 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
+    @Autowired
+    private AdministratorController administratorController;
+
     /**
      * 従業員一覧画面に遷移する.
      *
@@ -34,6 +37,9 @@ public class EmployeeController {
      */
     @GetMapping("/showList")
     public String showList(Model model){
+        if(!administratorController.isLoggedIn()){
+            return "redirect:/";
+        }
         List<Employee> employeeList = employeeService.showList();
         model.addAttribute("employeeList", employeeList);
         return "employee/list";
@@ -49,7 +55,11 @@ public class EmployeeController {
      */
     @GetMapping("/showDetail")
     public String showDetail(String id, Model model, UpdateEmployeeForm form){
+        if(!administratorController.isLoggedIn()){
+            return "redirect:/";
+        }
         Employee employee = employeeService.showDetail(Integer.parseInt(id));
+        System.out.println(form);
         model.addAttribute("employee", employee);
         return "employee/detail";
     }

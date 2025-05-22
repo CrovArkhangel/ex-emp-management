@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.domain.Administrator;
 import com.example.form.InsertAdministratorForm;
 import com.example.form.LoginForm;
+import com.example.form.UpdateAdministratorForm;
 import com.example.service.AdministratorService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.BeanUtils;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -56,6 +58,7 @@ public class AdministratorController {
             model.addAttribute("errorMessage","メールアドレスまたはパスワードが不正です。");
             return "administrator/login";
         }
+        session.setAttribute("administratorId", administrator.getId());
         session.setAttribute("administratorName", administrator.getName());
         return "redirect:employee/showList";
     }
@@ -89,7 +92,11 @@ public class AdministratorController {
      * @return ログイン画面
      */
     @PostMapping("/insert")
-    public String insert(@Validated InsertAdministratorForm form, BindingResult result, Model model){
+    public String insert(
+            @Validated InsertAdministratorForm form,
+            BindingResult result,
+            Model model
+    ){
         if(result.hasErrors()){
             return toInsert(form);
         }
@@ -99,5 +106,49 @@ public class AdministratorController {
         return "redirect:/";
     }
 
+    /**
+     * 管理者詳細画面に遷移する.
+     *
+     * @param form フォーム
+     * @param model モデル
+     * @return 管理者詳細画面
+     */
+    @GetMapping("/detail")
+    public String detail(
+            String id,
+            UpdateAdministratorForm form,
+            Model model
+    ){
+        if(!isLoggedIn()){
+            return "redirect:/";
+        }
+        Administrator administrator = administratorService.findById(Integer.parseInt(id));
+        model.addAttribute("administrator", administrator);
+        System.out.println("更新フォーム" + form);
+        return "administrator/detail";
+    }
 
+    @PostMapping("update")
+    public String update(
+            @Validated UpdateAdministratorForm form,
+            BindingResult result,
+            Model model
+    ){
+        if(result.hasErrors()){
+            return detail(form.getId(), form, model);
+        }
+        System.out.println(form);
+        Administrator administrator = new Administrator();
+        BeanUtils.copyProperties(form, administrator);
+        administratorService.update(administrator);
+        return "redirect:/employee/showList";
+    }
+
+    /**
+     * ログインしているかを判定するメソッド.
+     * @return ログインしていればtrue していなければfalse
+     */
+    public Boolean isLoggedIn(){
+        return session.getAttribute("administratorName") != null;
+    }
 }
