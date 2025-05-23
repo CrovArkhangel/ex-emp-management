@@ -9,8 +9,11 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * employeesテーブルを操作するリポジトリーです.
@@ -19,6 +22,8 @@ import java.util.List;
 public class EmployeeRepository {
     @Autowired
     private NamedParameterJdbcTemplate template;
+
+    private final int RECORDS_PER_PAGE = 10;
 
     private static final RowMapper<Employee> EMPLOYEE_ROW_MAPPER = (rs, i) -> {
         Employee employee = new Employee(
@@ -43,7 +48,7 @@ public class EmployeeRepository {
      *
      * @return 全従業員一覧
      */
-    public List<Employee> findAll(){
+    public List<Employee> findAll(String pageId){
         String sql = "select " +
                 "id, " +
                 "name, " +
@@ -57,10 +62,13 @@ public class EmployeeRepository {
                 "salary, " +
                 "characteristics, " +
                 "dependents_count " +
-                "from employees order by hire_date desc;";
-        List<Employee> employeeList = template.query(sql, EMPLOYEE_ROW_MAPPER);
-
-        return employeeList;
+                "from employees order by hire_date desc LIMIT :recordsPerPage OFFSET :offset;";
+        int offset = ( Integer.parseInt(pageId) - 1 ) * 10;
+        SqlParameterSource param = new MapSqlParameterSource()
+                .addValue("offset", offset)
+                .addValue("recordsPerPage", RECORDS_PER_PAGE);
+        List<Employee> employees = template.query(sql, param, EMPLOYEE_ROW_MAPPER);
+        return employees;
     }
 
     /**

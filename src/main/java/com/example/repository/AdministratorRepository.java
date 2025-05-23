@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -87,8 +88,6 @@ public class AdministratorRepository {
     public void update(Administrator administrator){
         SqlParameterSource param = new BeanPropertySqlParameterSource(administrator);
         final String sql = "update administrators set name = :name, mail_address = :mailAddress, password = :password where id = :id";
-        System.out.println(administrator);
-        System.out.println(sql);
         template.update(sql, param);
     }
 }

@@ -186,7 +186,12 @@
                     </td>
                   </tr>
                 </table>
-                <button type="submit" class="btn btn-primary">更新</button>
+                <div style="display: flex; justify-content: space-between;">
+                  <a href="list.html" th:href="@{/employee/showList}">
+                    <button class="btn">戻る</button>
+                  </a>
+                  <button type="submit" class="btn btn-primary">更新</button>
+                </div>
               </fieldset>
             </form>
 

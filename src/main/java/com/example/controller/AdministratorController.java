@@ -124,7 +124,6 @@ public class AdministratorController {
         }
         Administrator administrator = administratorService.findById(Integer.parseInt(id));
         model.addAttribute("administrator", administrator);
-        System.out.println("更新フォーム" + form);
         return "administrator/detail";
     }
 
@@ -135,12 +134,12 @@ public class AdministratorController {
             Model model
     ){
         if(result.hasErrors()){
-            return detail(form.getId(), form, model);
+            return detail(form.getId().toString(), form, model);
         }
-        System.out.println(form);
         Administrator administrator = new Administrator();
         BeanUtils.copyProperties(form, administrator);
         administratorService.update(administrator);
+        session.setAttribute("administratorName", administrator.getName());
         return "redirect:/employee/showList";
     }
 

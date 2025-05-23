@@ -23,8 +23,8 @@ public class EmployeeService {
      *
      * @return 全従業員情報
      */
-    public List<Employee> showList(){
-        return employeeRepository.findAll();
+    public List<Employee> showList(String pageId){
+        return employeeRepository.findAll(pageId);
     }
 
     /**

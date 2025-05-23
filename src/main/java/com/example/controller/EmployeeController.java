@@ -36,12 +36,24 @@ public class EmployeeController {
      * @return 従業員一覧画面
      */
     @GetMapping("/showList")
-    public String showList(Model model){
+    public String showList(String pageId, Model model){
         if(!administratorController.isLoggedIn()){
             return "redirect:/";
         }
-        List<Employee> employeeList = employeeService.showList();
+        if(pageId == null){
+            pageId = "1";
+        }
+        List<Employee> employeeList = employeeService.showList(pageId);
+
         model.addAttribute("employeeList", employeeList);
+        if(employeeList.size() == 10) {
+            model.addAttribute("nextPageId", Integer.parseInt(pageId) + 1);
+        }
+        model.addAttribute("currentPage", pageId);
+        if(Integer.parseInt(pageId) - 1 > 0){
+            model.addAttribute("backPageId", Integer.parseInt(pageId) - 1);
+        }
+
         return "employee/list";
     }
 
@@ -59,7 +71,6 @@ public class EmployeeController {
             return "redirect:/";
         }
         Employee employee = employeeService.showDetail(Integer.parseInt(id));
-        System.out.println(form);
         model.addAttribute("employee", employee);
         return "employee/detail";
     }
@@ -82,11 +93,13 @@ public class EmployeeController {
         final String oldEmployeeImage = oldEmployeeInfo.getImage();
         final Employee newEmployeeInfo = new Employee();
         BeanUtils.copyProperties(form, newEmployeeInfo);
+        newEmployeeInfo.setId(oldEmployeeInfo.getId());
+        newEmployeeInfo.setDependentsCount(Integer.parseInt(form.getDependentsCount()));
         if(Objects.equals(form.getImage(), "")){
             newEmployeeInfo.setImage(oldEmployeeImage);
         }
-
-        employeeService.update(oldEmployeeInfo);
+        System.out.println(newEmployeeInfo);
+        employeeService.update(newEmployeeInfo);
         return "redirect:/employee/showList";
     }
 }

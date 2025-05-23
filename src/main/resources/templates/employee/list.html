@@ -113,7 +113,23 @@
             </tr>
             </tbody>
           </table>
-
+          <div style="display: flex; justify-content: space-between;">
+            <div th:if="${backPageId}">
+              <a href="detail.html" th:href="'/ex-emp/employee/showList?pageId=' + ${backPageId}">
+                <button class="btn">戻る</button>
+              </a>
+            </div>
+            <div th:unless="${backPageId}">　　　</div>
+            <div style="justify-content: center;">
+              <span th:text="${currentPage} + 'ページ目'"></span>
+            </div>
+            <div th:if="${nextPageId}">
+              <a href="detail.html" th:href="'/ex-emp/employee/showList?pageId=' + ${nextPageId}">
+                <button class="btn">次へ</button>
+              </a>
+            </div>
+            <div th:unless="${nextPageId}">　　　</div>
+          </div>
           <!-- ここから下を編集する必要はありません -->
         </div>
       </div>

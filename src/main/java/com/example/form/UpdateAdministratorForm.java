@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Pattern;
  */
 public class UpdateAdministratorForm {
     /** id */
-    private String id;
+    private Integer id;
     /** 名前 */
     @NotBlank(message = "名前は必須です。")
     private String name;
@@ -22,18 +22,18 @@ public class UpdateAdministratorForm {
 
     @Override
     public String toString() {
-        return "InsertAdministratorForm{" +
+        return "UpdateAdministratorForm{" +
                 "name='" + name + '\'' +
                 ", mailAddress='" + mailAddress + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
